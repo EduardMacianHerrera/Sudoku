@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,6 +18,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     private TableLayout tableLayout;
     private Modelo modelo;
+    private Spinner[][] spinners = new Spinner[9][9];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +27,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         modelo = new Modelo();
 
         tableLayout = findViewById(R.id.tableLayout);
+        modelo.creaPartida();
         crearTabla(modelo);
+        refrescaGUI();
+//        modelo.setVal(0,0,3);
+        refrescaGUI();
     }
 
     private TableRow.LayoutParams newTableRowParams(){
@@ -40,8 +46,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             TableRow tr = new TableRow(this.getApplicationContext());
             for (int j = 0; j < modelo.sudoku[i].length; j++) {
                 Spinner spinner = new Spinner(this);
-                ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                        R.array.numeros, android.R.layout.simple_spinner_item);
+                spinners[i][j] = spinner;
+                ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(this,
+                        android.R.layout.simple_spinner_item, Modelo.opciones);
                 spinner.setBackground(null);
                 spinner.setAdapter(adapter);
                 spinner.setPadding(5, 5, 5, 5);
@@ -54,9 +61,26 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
     }
 
+    public void refrescaGUI(){
+        for (int i = 0; i < modelo.sudoku.length; i++) {
+            for (int j = 0; j < modelo.sudoku[i].length; j++) {
+                String valor = String.valueOf(modelo.sudoku[i][j]);
+                for (int k = 0; k < Modelo.opciones.length; k++) {
+                    if (Modelo.opciones[k].equals(valor)){
+                        spinners[i][j].setSelection(k);
+                    }
+                }
+
+
+                //Log.i("CANCER", "refrescaGUI: BASURA 2");
+            }
+        }
+    }
+    
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        
+
+        //refrescaGUI();
     }
 
     @Override
