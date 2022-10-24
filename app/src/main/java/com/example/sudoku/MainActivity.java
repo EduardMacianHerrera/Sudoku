@@ -27,11 +27,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         modelo = new Modelo();
 
         tableLayout = findViewById(R.id.tableLayout);
-        modelo.creaPartida();
         crearTabla(modelo);
+        modelo.creaPartida();
         refrescaGUI();
 //        modelo.setVal(0,0,3);
-        refrescaGUI();
     }
 
     private TableRow.LayoutParams newTableRowParams(){
@@ -51,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         android.R.layout.simple_spinner_item, Modelo.opciones);
                 spinner.setBackground(null);
                 spinner.setAdapter(adapter);
-                spinner.setPadding(5, 5, 5, 5);
+                spinner.setPadding(40, 30, 3, 3);
                 spinner.setTag(R.id.fila,i);
                 spinner.setTag(R.id.col,j);
                 spinner.setOnItemSelectedListener(this);
@@ -72,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 }
 
 
-                //Log.i("CANCER", "refrescaGUI: BASURA 2");
+
             }
         }
     }

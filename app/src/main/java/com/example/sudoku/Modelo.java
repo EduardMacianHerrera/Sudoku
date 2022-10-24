@@ -10,7 +10,7 @@ import java.util.Random;
 public class Modelo {
 
     public static int[][] sudoku = new int[9][9];
-    public static CharSequence[] opciones = {"1","2","3","4","5","6","7","8","9"};
+    public static CharSequence[] opciones = {"0","1","2","3","4","5","6","7","8","9"};
 
     public int getVal(int fila, int col){
         int val = sudoku[fila][col];
@@ -31,20 +31,26 @@ public class Modelo {
 
         for (int i = 0; i < sudoku.length; i++) {
             for (int j = 0; j < sudoku[i].length; j++) {
-                int valor = (int) Math.random()*10 + 1;
-                while (setVal(i,j,valor) == -1) {
+                int valor;
+                for (int k = 0; k < 3; k++) {
                     valor = random.nextInt(10);
+                    int num = setVal(i,j,valor);
                 }
+//                while (true) {
+//                    valor = random.nextInt(10);
+//                    int num = setVal(i,j,valor);
+//                    if (num == 1){
+//                        break;
+//                    }
+//                }
             }
         }
     }
 
-    public int setVal(int fila, int col, int val){ // ACABAR
+    public int setVal(int fila, int col, int val){
         int compFila = comprovaFila(fila);
         int compCol = comprovaCol(col);
         int compQuad = comprovaQuad(fila,col);
-
-        //Log.i("BASURA", "setVal: "+compFila+" "+compCol+" "+compQuad);
 
         if (compFila == 1 && compCol == 1 && compQuad == 1){
             sudoku[fila][col] = val;
